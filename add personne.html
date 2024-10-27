@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Nom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0072c6;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid #0072c6;
+            border-radius: 5px;
+            width: calc(100% - 44px);
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0072c6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #0072c6;
+            color: white;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ajouter un Nom</h1>
+        <input type="text" id="nameInput" placeholder="Entrez votre nom">
+        <button onclick="addName()">Ajouter</button>
+        <table id="namesTable">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Les noms seront ajoutés ici -->
+            </tbody>
+        </table>
+        <button onclick="goToNextPage()">Page Suivante</button>
+    </div>
+    <script>
+        // Fonction pour ajouter un nom
+        function addName() {
+            const name = document.getElementById('nameInput').value;
+            if (name) {
+                let participants = JSON.parse(localStorage.getItem('participants')) || [];
+                participants.push(name);
+                localStorage.setItem('participants', JSON.stringify(participants));
+                alert('Nom ajouté avec succès !');
+                document.getElementById('nameInput').value = '';
+                displayNames();
+            } else {
+                alert('Veuillez entrer un nom.');
+            }
+        }
+
+        // Fonction pour supprimer un nom
+        function deleteName(index) {
+            let participants = JSON.parse(localStorage.getItem('participants')) || [];
+            participants.splice(index, 1);
+            localStorage.setItem('participants', JSON.stringify(participants));
+            displayNames();
+        }
+
+        // Fonction pour afficher les noms dans le tableau
+        function displayNames() {
+            const participants = JSON.parse(localStorage.getItem('participants')) || [];
+            const tbody = document.getElementById('namesTable').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = ''; // Effacer le tableau avant de le remplir
+            participants.forEach((name, index) => {
+                const row = tbody.insertRow();
+                const nameCell = row.insertCell(0);
+                const actionCell = row.insertCell(1);
+
+                nameCell.textContent = name;
+                actionCell.innerHTML = `<button class="delete-btn" onclick="deleteName(${index})">Supprimer</button>`;
+            });
+        }
+
+        // Fonction pour aller à la page suivante
+        function goToNextPage() {
+            window.location.href = 'roulette.html'; // Redirige vers 'page_suivante.html'
+        }
+
+        // Afficher les noms lors du chargement de la page
+        document.addEventListener('DOMContentLoaded', displayNames);
+    </script>
+</body>
+</html>

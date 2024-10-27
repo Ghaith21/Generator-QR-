@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Lenovo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0072c6;
+        }
+        .answer {
+            border: 2px solid #0072c6;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .answer.correct {
+            border-color: green;
+        }
+        .answer.incorrect {
+            border-color: red;
+        }
+        .home-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0072c6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .home-button:hover {
+            background-color: #005a9e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Lenovo</h1>
+        <div>
+            <p>Question 1: ...</p>
+            <div class="answer" onclick="checkAnswer(this, true)">Réponse 1</div>
+            <div class="answer" onclick="checkAnswer(this, false)">Réponse 2</div>
+            <div class="answer" onclick="checkAnswer(this, false)">Réponse 3</div>
+        </div>
+        <!-- Répétez pour les autres questions -->
+        <button class="home-button" onclick="goHome()">Retour à l'accueil</button>
+    </div>
+    <script>
+        function checkAnswer(element, isCorrect) {
+            if (isCorrect) {
+                element.classList.add('correct');
+                alert('Félicitations ! Bonne réponse.');
+            } else {
+                element.classList.add('incorrect');
+                alert('Malheureusement, mauvaise réponse.');
+            }
+        }
+
+        function goHome() {
+            location.href = 'index.html'; // Assurez-vous que le nom de votre page d'accueil est correct
+        }
+    </script>
+</body>
+</html>

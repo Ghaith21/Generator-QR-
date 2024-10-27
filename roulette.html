@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette des Joueurs</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .roulette-container {
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 8px solid #0072c6; /* Couleur bleue */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #0072c6; /* Couleur bleue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #005a9e; /* Couleur bleue foncée */
+        }
+    </style>
+</head>
+<body>
+    <h1>Roulette des Joueurs</h1>
+    <div class="roulette-container" id="roulette">Cliquez pour choisir un joueur</div>
+    <button onclick="spinRoulette()">Lancer la Roulette</button>
+
+    <script>
+        // Récupère les noms des joueurs à partir du localStorage
+        const players = JSON.parse(localStorage.getItem('participants')) || [];
+
+        function spinRoulette() {
+            // Animation temporaire pour montrer que la roulette "tourne"
+            const roulette = document.getElementById('roulette');
+            roulette.textContent = '...';
+            
+            // Délai pour simuler la rotation de la roulette
+            setTimeout(() => {
+                // Sélectionne un joueur au hasard
+                const randomIndex = Math.floor(Math.random() * players.length);
+                const selectedPlayer = players[randomIndex];
+                roulette.textContent = selectedPlayer;
+
+                // Redirige vers la page du quiz après avoir sélectionné un joueur
+                setTimeout(() => {
+                    location.href = 'Quiz.html';
+                }, 1000); // Délai avant la redirection
+            }, 1000); // 1 seconde de délai pour l'animation
+        }
+
+        // Vérifie si des joueurs sont disponibles
+        if (players.length === 0) {
+            document.getElementById('roulette').textContent = 'Aucun joueur ajouté';
+        }
+    </script>
+</body>
+</html>
